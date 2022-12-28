@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "compile": "tsc",
     "watch": "tsc -w",
     "serve": "nodemon --watch src -e ts"
   },
