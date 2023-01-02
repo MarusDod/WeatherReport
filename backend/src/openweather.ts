@@ -148,6 +148,7 @@ export default class OpenWeatherFetcher{
         req += `&mode=json`
         req += `&appid=${this.apiKey}`
 
+
         return fetch(req).then(res => res.json())
     }
 

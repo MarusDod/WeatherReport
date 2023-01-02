@@ -1,15 +1,22 @@
 import { createClient } from "redis";
 
-const client = createClient({
+export const sessionClient = createClient({
+    url: `redis://${process.env['REDIS_URL']}`,
+    password: process.env['REDIS_AUTH'],
+    legacyMode: true
+})
+
+const v4Client = createClient({
     url: `redis://${process.env['REDIS_URL']}`,
     password: process.env['REDIS_AUTH'],
 })
 
-client.on('error',err => console.error(err));
-client.on('ready',() => console.log('redis...'));
+sessionClient.on('error',err => console.error(err));
+sessionClient.on('ready',() => console.log('redis...'));
 
 (async () => {
-    await client.connect()
+    await sessionClient.connect()
+    await v4Client.connect()
 })()
 
-export default client
+export default v4Client

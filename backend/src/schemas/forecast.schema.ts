@@ -1,5 +1,5 @@
 import { ObjectType, Field, ArgsType, Int } from 'type-graphql'
-import {  WeatherInputDTO } from './weather.schema'
+import {  PreferencesInputDTO, WeatherInputDTO } from './weather.schema'
 import { IsInt, IsPositive } from 'class-validator'
 import { ForecastResponse } from '../openweather'
 
@@ -138,4 +138,7 @@ export class ForecastWeatherArgs {
 
     @Field(() => WeatherInputDTO)
     input: WeatherInputDTO
+
+    @Field(() => PreferencesInputDTO,{nullable: true})
+    pref?: PreferencesInputDTO
 }

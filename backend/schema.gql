@@ -47,18 +47,28 @@ type ForecastWeatherDTO {
 }
 
 input LoginInput {
-  mail: String!
+  email: String!
   password: String!
+}
+
+type LogoutInfo {
+  success: Boolean!
 }
 
 type Mutation {
   login(input: LoginInput!): User!
+  logout: LogoutInfo!
   signUp(input: SignUpInput!): User!
 }
 
+input PreferencesInputDTO {
+  lang: String
+  unit: String
+}
+
 type Query {
-  currentWeather(input: WeatherInputDTO!): RegionWeatherDTO!
-  forecastWeather(input: WeatherInputDTO!, limit: Int): ForecastWeatherDTO!
+  currentWeather(input: WeatherInputDTO!, preferences: PreferencesInputDTO): RegionWeatherDTO!
+  forecastWeather(input: WeatherInputDTO!, limit: Int, pref: PreferencesInputDTO): ForecastWeatherDTO!
 }
 
 type RegionWeatherDTO {
@@ -90,21 +100,19 @@ type RegionWeatherDTO {
 
 input SignUpInput {
   confirmationPassword: String!
-  mail: String!
+  email: String!
   password: String!
   username: String!
 }
 
 type User {
-  mail: String!
+  email: String!
   username: String!
 }
 
 input WeatherInputDTO {
   city: String
   id: Int
-  lang: String
   lat: Float
   long: Float
-  unit: String
 }

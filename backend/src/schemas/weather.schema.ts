@@ -112,7 +112,10 @@ export class WeatherInputDTO {
     @Field({nullable: true})
     @IsLongitude()
     long?: number
+}
 
+@InputType()
+export class PreferencesInputDTO {
     @Field({nullable: true})
     unit?: string
 

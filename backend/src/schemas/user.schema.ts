@@ -1,3 +1,4 @@
+import { IsEmail, MinLength } from 'class-validator'
 import { ObjectType, InputType, Field } from 'type-graphql'
 
 @ObjectType()
@@ -6,8 +7,23 @@ export class User {
     username: string
 
     @Field()
-    mail: string
+    email: string
 }
+
+@ObjectType()
+export class LogoutInfo {
+    @Field(() => Boolean)
+    success: boolean
+}
+
+export class RedisUser {
+    id: string
+    username: string
+    email: string
+    hashedPassword: string
+}
+
+export type Session = Omit<RedisUser,"hashedPassword">
 
 @InputType()
 export class SignUpInput {
@@ -15,9 +31,11 @@ export class SignUpInput {
     username: string
 
     @Field()
-    mail: string
+    @IsEmail()
+    email: string
 
     @Field()
+    @MinLength(6)
     password: string
 
     @Field()
@@ -27,7 +45,8 @@ export class SignUpInput {
 @InputType()
 export class LoginInput {
     @Field()
-    mail: string
+    @IsEmail()
+    email: string
 
     @Field()
     password: string
