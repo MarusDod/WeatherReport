@@ -1,8 +1,7 @@
 import { ObjectType, Field, ArgsType, Int } from 'type-graphql'
 import {  PreferencesInputDTO, WeatherInputDTO } from './weather.schema'
-import { IsInt, IsPositive } from 'class-validator'
+import { IsInt, IsPositive, Max, Min } from 'class-validator'
 import { ForecastResponse } from '../openweather'
-
 
 @ObjectType()
 export class Forecast {
@@ -132,8 +131,9 @@ export class ForecastWeatherDTO {
 @ArgsType()
 export class ForecastWeatherArgs {
     @Field(() => Int,{nullable: true})
-    @IsPositive()
     @IsInt()
+    @Min(0)
+    @Max(40)
     limit?: number
 
     @Field(() => WeatherInputDTO)

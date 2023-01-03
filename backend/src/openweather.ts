@@ -141,13 +141,13 @@ export default class OpenWeatherFetcher{
     private fetchCityData(endpoint: string,region: Region): Promise<any> {
         let req = `${OpenWeatherFetcher.baseURL}/${endpoint}?`
         
-        req += `${region.type === 'cityid' ? `id=${region.id}` : region.type === 'city' ? `q=${region.name.join(',')}` : region.type === 'coordinate' ? `lat=${region.coord.lat}&long=${region.coord.lon}`: ""}`
+        req += `${region.type === 'cityid' ? `id=${region.id}` : region.type === 'city' ? `q=${region.name.join(',')}` : region.type === 'coordinate' ? `lat=${region.coord.lat}&lon=${region.coord.lon}`: ""}`
 
         req += this.options.unit ? `&unit=${this.options.unit}` : ''
         req += this.options.lang ? `&lang=${this.options.lang}` : ''
+        req += this.options.cnt ? `&cnt=${this.options.cnt}` : ''
         req += `&mode=json`
         req += `&appid=${this.apiKey}`
-
 
         return fetch(req).then(res => res.json())
     }

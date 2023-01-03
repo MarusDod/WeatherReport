@@ -25,7 +25,6 @@ function handleAPIErrorCode(code: number): void {
 @Resolver(() => RegionWeatherDTO)
 export class WeatherResolver {
 
-    @Authorized()
     @Query(() => RegionWeatherDTO)
     @validateWeatherInput()
     async currentWeather(@Arg('input') input: WeatherInputDTO,@RegionParam() region: Region,@Arg('preferences',{nullable: true}) pref: PreferencesInputDTO): Promise<RegionWeatherDTO>{

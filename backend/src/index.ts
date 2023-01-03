@@ -12,6 +12,7 @@ import { WeatherResolver } from './resolvers/weather.resolver';
 import OpenWeatherFetcher from './openweather';
 import connectRedis from 'connect-redis'
 import session, { Cookie } from 'express-session'
+import cors from 'cors'
 
 import { AuthResolver } from "./resolvers/auth.resolver"
 import client, { sessionClient } from "./redis"
@@ -54,6 +55,9 @@ const RedisStore = connectRedis(session);
     }))
 
     app.use(cookieParser())
+    app.use(cors({
+	origin: "*"
+    }))
 
     app.use(
         '/graphql', graphqlHTTP(async (req,res) => ({
