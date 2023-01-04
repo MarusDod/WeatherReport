@@ -21,6 +21,7 @@ import { createClient } from "redis"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 import { RedisUser } from "./schemas/user.schema"
+import { GeoCodeResolver } from "./resolvers/geocode.resolver"
 
 
 const app = express();
@@ -30,11 +31,6 @@ const RedisStore = connectRedis(session);
 (async () => {
     app.get('/hello',(req,res) => {
         res.send('hello!')
-    })
-
-    //test
-    app.get('/weather',async (req,res) => {
-        return res.json(await new OpenWeatherFetcher().fetchCityWeather({type: 'city',name: ['Lisbon']}))
     })
 
     app.use('/graphql',session({
@@ -56,7 +52,7 @@ const RedisStore = connectRedis(session);
 
     app.use(cookieParser())
     app.use(cors({
-	origin: "*"
+        origin: "*"
     }))
 
     app.use(
@@ -65,7 +61,7 @@ const RedisStore = connectRedis(session);
                 context: {req,res},
                 schema: await buildSchema({
                     emitSchemaFile: true,
-                    resolvers: [WeatherResolver,AuthResolver],
+                    resolvers: [WeatherResolver,AuthResolver,GeoCodeResolver],
                     authChecker: async ({root,args,context,info}) => {
                         const user: RedisUser | undefined = context.req.session.user
 

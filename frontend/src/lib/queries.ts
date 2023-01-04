@@ -127,21 +127,23 @@ export const cityInfoByIdQuery = gql`
     }
 `
 
-export const cityInfoByNameQuery = gql`
-    query CityInfoByNameQuery($name: String!) {
-        forecastWeather (limit: 0,input: {city: $name}) {
-            city {
-                ...CityFragment
-            }
-        }
-    }
-`
 export const cityInfoByCoordinatesQuery = gql`
     query CityInfoByCoordinatesQuery($lat: Float!,$long: Float!) {
         forecastWeather (limit: 0,input: {lat: $lat,long: $long}) {
             city {
                 ...CityFragment
             }
+        }
+    }
+`
+
+export const cityInfoByNameQuery = gql`
+    query CityInfoByNameQuery($city: String!,$state: String,$country: String) {
+        geoCode (limit: 5,input: {city: $name,state: $state,country: $country}) {
+            name
+            country
+            lat
+            lon
         }
     }
 `

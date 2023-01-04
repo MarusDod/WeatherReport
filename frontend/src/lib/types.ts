@@ -1,5 +1,8 @@
+import { WeatherInputDto } from "../gql/graphql"
 
 export type Coordinates = {
-    latitude: number,
-    longitude: number,
+    lat: number,
+    long: number,
 }
+
+export type Region = WeatherInputDto

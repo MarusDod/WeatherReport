@@ -2,13 +2,13 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ReactNode } from "react";
 
 
-const client = new ApolloClient({
+export const apolloClient = new ApolloClient({
     cache: new InMemoryCache(),
     uri: "http://localhost:9200/graphql"
 });
 
 const BackendProvider: React.FC<{children: ReactNode}> = ({children}) => (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
         {children}
     </ApolloProvider>
 )

@@ -22,8 +22,8 @@ const documents = {
     "\n    query ForecastByCityIdQuery($limit: Int,$cityid: Int!) {\n        forecastWeather (limit: $limit,input: {id: $cityid}) {\n            results {\n                ...ForecastFragment\n            }\n        }\n    }\n": types.ForecastByCityIdQueryDocument,
     "\n    query ForecastByCoordinatesQuery($limit: Int,$lat: Float!,$long: Float!) {\n        forecastWeather (limit: $limit,input: {lat: $lat,long: $long}) {\n            results {\n                ...ForecastFragment\n            }\n        }\n    }\n": types.ForecastByCoordinatesQueryDocument,
     "\n    query CityInfoByIdQuery($id: Int!) {\n        forecastWeather (limit: 0,input: {id: $id}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n": types.CityInfoByIdQueryDocument,
-    "\n    query CityInfoByNameQuery($name: String!) {\n        forecastWeather (limit: 0,input: {city: $name}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n": types.CityInfoByNameQueryDocument,
     "\n    query CityInfoByCoordinatesQuery($lat: Float!,$long: Float!) {\n        forecastWeather (limit: 0,input: {lat: $lat,long: $long}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n": types.CityInfoByCoordinatesQueryDocument,
+    "\n    query CityInfoByNameQuery($name: String!) {\n        geoCode (limit: 5,input: {city: $name}) {\n            name\n            country\n            lat\n            lon\n        }\n    }\n": types.CityInfoByNameQueryDocument,
 };
 
 /**
@@ -65,11 +65,11 @@ export function graphql(source: "\n    query CityInfoByIdQuery($id: Int!) {\n   
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query CityInfoByNameQuery($name: String!) {\n        forecastWeather (limit: 0,input: {city: $name}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n"): (typeof documents)["\n    query CityInfoByNameQuery($name: String!) {\n        forecastWeather (limit: 0,input: {city: $name}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n"];
+export function graphql(source: "\n    query CityInfoByCoordinatesQuery($lat: Float!,$long: Float!) {\n        forecastWeather (limit: 0,input: {lat: $lat,long: $long}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n"): (typeof documents)["\n    query CityInfoByCoordinatesQuery($lat: Float!,$long: Float!) {\n        forecastWeather (limit: 0,input: {lat: $lat,long: $long}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query CityInfoByCoordinatesQuery($lat: Float!,$long: Float!) {\n        forecastWeather (limit: 0,input: {lat: $lat,long: $long}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n"): (typeof documents)["\n    query CityInfoByCoordinatesQuery($lat: Float!,$long: Float!) {\n        forecastWeather (limit: 0,input: {lat: $lat,long: $long}) {\n            city {\n                ...CityFragment\n            }\n        }\n    }\n"];
+export function graphql(source: "\n    query CityInfoByNameQuery($name: String!) {\n        geoCode (limit: 5,input: {city: $name}) {\n            name\n            country\n            lat\n            lon\n        }\n    }\n"): (typeof documents)["\n    query CityInfoByNameQuery($name: String!) {\n        geoCode (limit: 5,input: {city: $name}) {\n            name\n            country\n            lat\n            lon\n        }\n    }\n"];
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

@@ -7,8 +7,6 @@ interface PopupProps {
     message: string,
 }
 
-const popupRoot = document.getElementById('popup-root')!;
-
 const Popup = styled.div.attrs((props: PopupProps) => props)`
         top: 20px;
         background-color: ${(props) => props.color ?? "green"};

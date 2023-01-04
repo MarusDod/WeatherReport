@@ -46,6 +46,19 @@ type ForecastWeatherDTO {
   results: [Forecast]!
 }
 
+type GeoCodeDTO {
+  country: String!
+  lat: Float!
+  lon: Float!
+  name: String!
+}
+
+input GeoCodeInput {
+  city: String!
+  country: String
+  state: String
+}
+
 input LoginInput {
   email: String!
   password: String!
@@ -69,6 +82,7 @@ input PreferencesInputDTO {
 type Query {
   currentWeather(input: WeatherInputDTO!, preferences: PreferencesInputDTO): RegionWeatherDTO!
   forecastWeather(input: WeatherInputDTO!, limit: Int, pref: PreferencesInputDTO): ForecastWeatherDTO!
+  geoCode(input: GeoCodeInput!, limit: Float): [GeoCodeDTO!]!
 }
 
 type RegionWeatherDTO {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Coordinates } from './lib/types'
 import CurrentWeatherWidget from './components/currentWeatherWidget'
+import Layout from './Layout'
 
 const Homepage: React.FC = ({}) => {
 
@@ -9,15 +10,17 @@ const Homepage: React.FC = ({}) => {
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(pos => {
             setCoords({
-                latitude: pos.coords.latitude,
-                longitude: pos.coords.longitude,
+                lat: pos.coords.latitude,
+                long: pos.coords.longitude,
             })
         })
     },[])
 
-    return coords ?
-        (<CurrentWeatherWidget location={coords} />)
-        : (<div>oops</div>)
+    return <Layout>
+        {coords ?
+            (<CurrentWeatherWidget location={coords} />)
+            : (<div>oops</div>)}
+    </Layout>
         
 }
 

@@ -8,7 +8,6 @@ import Homepage from './Homepage';
 function App() {
   return (
     <div className='App'>
-      <Layout>
         <BackendProvider>
           <BrowserRouter basename=''>
             <Routes>
@@ -19,7 +18,6 @@ function App() {
             </Routes>
           </BrowserRouter>
         </BackendProvider>
-      </Layout>
     </div>
   );
 }

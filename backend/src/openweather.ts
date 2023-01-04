@@ -108,8 +108,17 @@ export type ForecastResponse = WeatherHttpStatus & {
     }>
 }
 
+export type GeoCodeResponse = Array<{
+    name: string,
+    lat: number,
+    lon: number,
+    country: string,
+    state: string,
+    local_names: Record<string,string>,
+}>
+
 export default class OpenWeatherFetcher{
-    static baseURL = "https://api.openweathermap.org/data/2.5"
+    static baseURL = "https://api.openweathermap.org"
 
     private apiKey: string | undefined
     private options: OpenWeatherOptions
@@ -138,8 +147,19 @@ export default class OpenWeatherFetcher{
         return openweather
     }
 
+    fetchGeoData(city: string[],limit: number = 5): Promise<GeoCodeResponse> {
+        let req = `${OpenWeatherFetcher.baseURL}/geo/1.0/direct?`
+        
+        req += `q=${city.join(',')}`
+        req += `&limit=${limit}`
+        req += `&mode=json`
+        req += `&appid=${this.apiKey}`
+
+        return fetch(req).then(res => res.json())
+    }
+
     private fetchCityData(endpoint: string,region: Region): Promise<any> {
-        let req = `${OpenWeatherFetcher.baseURL}/${endpoint}?`
+        let req = `${OpenWeatherFetcher.baseURL}/data/2.5/${endpoint}?`
         
         req += `${region.type === 'cityid' ? `id=${region.id}` : region.type === 'city' ? `q=${region.name.join(',')}` : region.type === 'coordinate' ? `lat=${region.coord.lat}&lon=${region.coord.lon}`: ""}`
 

@@ -9,7 +9,7 @@ import { GraphQLError } from "graphql";
 const weatherCacheExpire = 60 * 30
 const forecastCacheExpire = 60 * 60 * 3
 
-function handleAPIErrorCode(code: number): void {
+export function handleAPIErrorCode(code: number): void {
     switch(code){
         case 200:
             break;
@@ -22,7 +22,7 @@ function handleAPIErrorCode(code: number): void {
     }
 }
 
-@Resolver(() => RegionWeatherDTO)
+@Resolver()
 export class WeatherResolver {
 
     @Query(() => RegionWeatherDTO)

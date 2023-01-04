@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { Coordinates } from "../lib/types"
+import { Coordinates, Region } from "../lib/types"
 import styles from "../styles/weatherWidget.module.scss"
 import { currentWeatherByLocationQuery,  } from "../lib/queries"
 import { CurrentWeatherByLocationQueryQuery } from "../gql/graphql"
@@ -9,10 +9,10 @@ import { RegionWeatherDto } from "../gql/graphql"
 import moment from "moment"
 import { kelvinToCelsius } from "../lib/helper"
 
-const CurrentWeatherWidget: React.FC<{location: Coordinates}> = ({location}) => {
+const CurrentWeatherWidget: React.FC<{location: Region}> = ({location}) => {
     const {loading,error,data} = useQuery<CurrentWeatherByLocationQueryQuery>(currentWeatherByLocationQuery,{variables: {
-        lat: location.latitude,
-        long: location.longitude,
+        lat: location.lat,
+        long: location.long,
     }})
 
     if(loading){
