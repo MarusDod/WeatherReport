@@ -9,8 +9,8 @@ export type ReduxUser = {
 export const counterSlice = createSlice({
     name: 'user',
     initialState: {
-        email: localStorage.getItem("email"),
-        username: localStorage.getItem("username"),
+        email: sessionStorage.getItem("email"),
+        username: sessionStorage.getItem("username"),
     },
     reducers: {
       setEmail: (state,{payload}) => {
@@ -34,14 +34,14 @@ export const {setEmail, setUser, setUsername, clearUser} = counterSlice.actions
 
 export const saveUserState = (user: ReduxUser): void => {
     if(user.email)
-        localStorage.setItem("email",user.email)
+        sessionStorage.setItem("email",user.email)
     else
-        localStorage.removeItem("email")
+        sessionStorage.removeItem("email")
 
     if(user.username)
-        localStorage.setItem("username",user.username)
+        sessionStorage.setItem("username",user.username)
     else
-        localStorage.removeItem("username")
+        sessionStorage.removeItem("username")
 }
 
 const rootReducer = combineReducers({

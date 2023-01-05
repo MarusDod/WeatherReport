@@ -1,13 +1,17 @@
 import React, { useMemo } from "react"
-import { useSearchParams } from "react-router-dom"
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom"
 import Layout from "./Layout"
 import { Coordinates } from "./lib/types"
 import ForecastWeatherQuery from "./components/forecastWeatherWidget"
+import { useSelector } from "react-redux"
+import { RootReducer } from "./lib/store"
 
 
 const ForecastPage: React.FC = () => {
 
     const [searchParams,setSearchParams] = useSearchParams()
+    const user = useSelector((state: RootReducer) => state.user)
+    const navigate = useNavigate()
 
     const coords = useMemo<Coordinates | null>(() => {
         const latitude = searchParams.get('latitude')
@@ -22,6 +26,10 @@ const ForecastPage: React.FC = () => {
             long: parseFloat(searchParams.get('longitude')!),
         }
     },[searchParams])
+
+    if(!user.email || !user.username){
+        navigate('/')
+    }
 
     return <Layout>
         {!!coords ? 

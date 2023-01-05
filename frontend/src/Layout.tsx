@@ -135,8 +135,8 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
         </div>
         <div className={styles.rest} style={{
             backgroundImage: `url(${CloudImage})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'stretch'
+            backgroundRepeat: 'no-repet',
+            backgroundAttachment: 'fixed'
         }}>
             {children}
         </div>

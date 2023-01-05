@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc",
     "watch": "tsc -w",
-    "serve": "nodemon --watch src -e ts"
+    "serve": "NODE_ENV=development nodemon --watch src -e ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
