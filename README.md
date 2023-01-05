@@ -1,6 +1,13 @@
 # Weather Report
 
-Quick fullstack project to fetch data from openweathermap.org and display it on a web page 
+[Webpage](https://wreport.onrender.com)
+
+[GraphQL Playground](https://wreport-graphql.onrender.com/graphql)
+
+
+Simple fullstack project using typescript, express, graphql, redis and react. It fetches data from openweathermap.org and displays it on a web page
+
+## Clone
 
 ```bash
 $ git clone git@github.com:MarusDod/WeatherReport.git
@@ -27,8 +34,8 @@ SESSION_SECRET=
 Compile and Run
 
 ```bash
-$ npm run compile
-$ npm run serve
+$ yarn run compile
+$ yarn run serve
 ```
 
 ## Setup frontend
