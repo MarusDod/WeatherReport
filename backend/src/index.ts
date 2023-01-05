@@ -46,13 +46,18 @@ const RedisStore = connectRedis(session);
         cookie: {
             maxAge: 2 * 3600 * 1000,
             httpOnly: true,
-            secure: false
+            secure: false,
+            sameSite: "none"
         }
     }))
 
     app.use(cookieParser())
     app.use(cors({
-        origin: "*"
+        origin: [
+            "http://localhost:9200/graphql",
+            "http://localhost:3000"
+        ],
+        credentials: true,
     }))
 
     app.use(
@@ -81,10 +86,6 @@ const RedisStore = connectRedis(session);
                     return ({
                         name: error.name,
                         message: error.message,
-                        stack: error.stack,
-                        locations: error.locations,
-                        source: error.source,
-                        path: error.path,
                         positions: error.positions,
                         extensions: error.extensions,
                         originalError: error.originalError,

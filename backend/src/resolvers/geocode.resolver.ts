@@ -26,11 +26,6 @@ export class GeoCodeResolver {
             data = JSON.parse(cacheRes)
         }
 
-
-        if(!data || data.length < 1){
-            throw new GraphQLError("internal error")
-        }
-
         return data.map(d =>  ({
             country: d.country,
             lat: d.lat,

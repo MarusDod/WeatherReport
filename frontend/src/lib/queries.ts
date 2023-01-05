@@ -9,6 +9,14 @@ export const loginMutation = gql`
     }
 `
 
+export const logoutMutation = gql`
+    mutation Logout {
+        logout {
+            success
+        }
+    }
+`
+
 export const signupMutation = gql`
     mutation Signup($username: String!,$email: String!, $password: String!,$confirmationPassword: String!) {
         signUp(input: {username: $username,email: $email,password: $password,confirmationPassword: $confirmationPassword}) {
@@ -97,7 +105,7 @@ export const forecastByCityNameQuery = gql`
     }
 `
 
-export const forecastByCityIdQuery = gql`
+/*export const forecastByCityIdQuery = gql`
     query ForecastByCityIdQuery($limit: Int,$cityid: Int!) {
         forecastWeather (limit: $limit,input: {id: $cityid}) {
             results {
@@ -105,19 +113,39 @@ export const forecastByCityIdQuery = gql`
             }
         }
     }
-`
+`*/
 
 export const forecastByCoordinatesQuery = gql`
     query ForecastByCoordinatesQuery($limit: Int,$lat: Float!,$long: Float!) {
         forecastWeather (limit: $limit,input: {lat: $lat,long: $long}) {
             results {
-                ...ForecastFragment
+                windDegrees
+                temperature
+                maxTemperature
+                minTemperature
+                feelsLike
+                pressure
+                seaLevel
+                snow
+                rain
+                clouds
+                description
+                date
+                clouds
+                dayIcon
+                nightIcon
+                feelsLike
+                humidity
+                main
+                visibility
+                windDegrees
+                windSpeed
             }
         }
     }
 `
 
-export const cityInfoByIdQuery = gql`
+/*export const cityInfoByIdQuery = gql`
     query CityInfoByIdQuery($id: Int!) {
         forecastWeather (limit: 0,input: {id: $id}) {
             city {
@@ -135,11 +163,11 @@ export const cityInfoByCoordinatesQuery = gql`
             }
         }
     }
-`
+`*/
 
 export const cityInfoByNameQuery = gql`
     query CityInfoByNameQuery($city: String!,$state: String,$country: String) {
-        geoCode (limit: 5,input: {city: $name,state: $state,country: $country}) {
+        geoCode (limit: 5,input: {city: $city,state: $state,country: $country}) {
             name
             country
             lat

@@ -1,0 +1,27 @@
+.form {
+    font-weight: bolder;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.8em;
+    align-self: center;
+}
+
+.label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 0;
+}
+
+.input {
+    width: 90%;
+    font-size: 1em;
+}
+
+.submit {
+    background-color: rgb(101, 172, 223);
+    border-radius: 20px;
+    border: none;
+    align-self: center;
+    width: 50%;
+    padding: .5em;
+    font-size: 1em;
+    cursor: pointer;
+}

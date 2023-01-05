@@ -72,8 +72,8 @@ export class RegionWeatherDTO {
         return {
             main: data.weather[0].main,
             description: data.weather[0].description,
-            dayIcon: `http://openweathermap.org/img/w/${data.weather[0].icon}.png`,
-            nightIcon: `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`,
+            dayIcon: `http://openweathermap.org/img/w/${data.weather[0].icon}@4x.png`,
+            nightIcon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
             date: new Date(data.dt * 1000),
             timezone: data.timezone,
             latitude: data.coord.lat,
