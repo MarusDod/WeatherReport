@@ -22,3 +22,5 @@ sketch
 .vscode
 todo.txt
 dist
+src/gql
+build

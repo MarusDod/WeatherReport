@@ -36,4 +36,5 @@ $ npm run serve
 ```bash
 $ cd frontend
 $ yarn
+$ yarn run codegen
 $ npm run start
