@@ -21,6 +21,7 @@
         nodePackages.npm
         nodePackages.typescript
         yarn
+        gh
       ];
 
       buildInputs = [

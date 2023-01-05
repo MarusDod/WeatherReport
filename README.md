@@ -3,7 +3,7 @@
 Quick fullstack project to fetch data from openweathermap.org and display it on a web page 
 
 ```bash
-$ git clone 
+$ git clone git@github.com:MarusDod/WeatherReport.git
 ```
 
 ## Setup backend
@@ -15,6 +15,15 @@ $ cd backend
 $ yarn
 ```
 
+setup .env
+
+```
+OPENWEATHER_API=
+REDIS_URL=
+REDIS_AUTH=
+SESSION_SECRET=
+```
+
 Compile and Run
 
 ```bash
@@ -24,4 +33,7 @@ $ npm run serve
 
 ## Setup frontend
 
-todo...
+```bash
+$ cd frontend
+$ yarn
+$ npm run start
