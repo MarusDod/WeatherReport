@@ -81,8 +81,6 @@ const ForecastWeatherQuery: React.FC<{coordinates: Coordinates}> = ({coordinates
         return <></>
     }
 
-    console.log(dataByDay)
-
     return (<>
         {Object.entries(dataByDay).map(([day,fs]) => (
             <React.Fragment key={day}>

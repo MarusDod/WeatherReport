@@ -28,8 +28,6 @@ const Login: React.FC<{hide: () => any}> = ({hide}) => {
                 }
             })
             .then(result => {
-                console.log({result})
-
                 dispatch(setUser({
                     email: result.data!.login.email,
                     username: result.data!.login.username

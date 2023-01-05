@@ -75,22 +75,17 @@ const RedisStore = connectRedis(session);
 
                         const sess = JSON.parse((await client.get(`sess:${req['sessionID']}`))!!)['user']
 
-                        console.log(sess)
-
                         return !!sess && sess['id'] === user.id
                     },
                     validate: true,
                 }),
-                customFormatErrorFn: error => {
-                    console.log(error)
-                    return ({
+                customFormatErrorFn: error => ({
                         name: error.name,
                         message: error.message,
                         positions: error.positions,
                         extensions: error.extensions,
                         originalError: error.originalError,
                     })
-                }
             })))
 
     app.listen(9200,() => console.log('ready...'))

@@ -78,7 +78,6 @@ export class WeatherResolver {
 
 
             if(!!cnt && parseInt(cnt) >= (!forecast.limit ? 0 : forecast.limit > 40 ? 40 : forecast.limit)){
-                console.log('CACHE')
                 data = JSON.parse((await client.get(`weather:${cityid}:forecast`))!!)
             }
         }
@@ -87,7 +86,6 @@ export class WeatherResolver {
             data = await new OpenWeatherFetcher()
                 .fetchCityForecast(region)
 
-            console.log('FETCH')
             handleAPIErrorCode(data.cod)
 
             client.set(`coordinates:${data.city.coord.lat}:${data.city.coord.lon}`,data.city.id)

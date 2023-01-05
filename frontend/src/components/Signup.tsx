@@ -31,8 +31,6 @@ const Signup: React.FC<{hide: () => any}> = ({hide}) => {
                 }
             })
             .then(result => {
-                console.log({result})
-
                 setUsername("")
                 setEmail("")
                 setPassword("")
@@ -51,8 +49,6 @@ const Signup: React.FC<{hide: () => any}> = ({hide}) => {
                 hide()
             })
             .catch((errors) => {
-                console.log(JSON.parse(JSON.stringify(errors)))
-
                 errors.networkError.result.errors.forEach((e: GraphQLError) => {
                     if(e.message){
                         toast(e.message)

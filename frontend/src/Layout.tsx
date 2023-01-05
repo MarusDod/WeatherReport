@@ -27,8 +27,6 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
 
     const loggedInUser = useSelector<RootReducer,ReduxUser>(state => state.user)
 
-    console.log(loggedInUser)
-
     const isLoggedIn = useMemo(() => !!loggedInUser.email && !!loggedInUser.username, [loggedInUser])
 
     const [search,setSearch] = useState<string>("")

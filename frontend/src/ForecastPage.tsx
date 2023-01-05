@@ -23,8 +23,6 @@ const ForecastPage: React.FC = () => {
         }
     },[searchParams])
 
-    console.log({searchParams})
-
     return <Layout>
         {!!coords ? 
             <ForecastWeatherQuery coordinates={coords} />

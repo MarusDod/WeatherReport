@@ -10,8 +10,6 @@ const Homepage: React.FC = ({}) => {
     const [coords,setCoords] = useState<Coordinates | null>(null)
     const [searchParams,setSearchParams] = useSearchParams()
 
-    console.log({searchParams})
-
     useEffect(() => {
         if(searchParams.get('latitude') && searchParams.get('longitude')){
             setCoords({
