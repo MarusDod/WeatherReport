@@ -2,7 +2,7 @@ import "reflect-metadata"
 
 import dotenv from 'dotenv'
 
-dotenv.config()
+dotenv.config({path: `.env.${process.env['NODE_ENV']}`})
 
 import express from 'express'
 import { graphql } from 'graphql'
@@ -55,7 +55,8 @@ const RedisStore = connectRedis(session);
     app.use(cors({
         origin: [
             "http://localhost:9200/graphql",
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "https://wreport.onrender.com",
         ],
         credentials: true,
     }))
