@@ -2,7 +2,7 @@ import { ApolloClient, ApolloLink, ApolloProvider, InMemoryCache, createHttpLink
 import { ReactNode } from "react";
 
 export const apolloClient = new ApolloClient({
-    uri: 'http://localhost:9200/graphql',
+    uri: process.env['NODE_ENV'] === 'production' ? 'https://wreport-graphql.onrender.com/graphql' : 'http://localhost:9200/graphql',
     cache: new InMemoryCache(),
     credentials: 'include',
 });
