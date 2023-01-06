@@ -1,9 +1,9 @@
 .nav {
     top: 0;
     width: 100%;
-    height: 80px;
     position: fixed;
     display: flex;
+    height: 80px;
     flex-flow: row nowrap;
     background-color: sienna;
     justify-content: space-between;
@@ -15,6 +15,8 @@
         color: white;
         font-size: larger;
         font-weight: bold;
+        min-width: 0;
+        flex-shrink: 1;
     }
 
     & .search {

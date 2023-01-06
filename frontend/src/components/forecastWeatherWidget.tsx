@@ -3,12 +3,13 @@ import { useQuery } from "@apollo/client"
 import { Coordinates } from "../lib/types"
 import ReactLoading from 'react-loading';
 import { ForecastByCoordinatesQueryQuery, Forecast } from "../gql/graphql"
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { forecastByCoordinatesQuery } from '../lib/queries';
 import moment from 'moment';
 import classNames from 'classnames';
 import { groupBy, kelvinToCelsius } from '../lib/helper';
+
 
 const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
     
@@ -22,7 +23,7 @@ const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
             <div className={styles.temp}>{kelvinToCelsius(forecast.temperature)}ºC</div>
         </div>
         <div className={styles.stat}>
-            <span>Wind</span> <span>{forecast.windSpeed} m/s</span>
+            <span>Wind</span> <span>{forecast.windSpeed} km/h</span>
         </div>
         <div className={styles.stat}>
             Pressure {forecast.pressure}hPa
@@ -37,10 +38,27 @@ const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
             Cloudiness {forecast.clouds}%
         </div>
         <div className={styles.stat}>
-            Sea Level {forecast.seaLevel}%
+            Sea Level {forecast.seaLevel} hPa
         </div>
 
     </div>)
+}
+
+const ForecastEntry: React.FC<{day: string | number, forecasts: Forecast[]}> = ({day,forecasts}) => {
+    const [show,setShow] = useState(false)
+
+    return (
+        <React.Fragment key={day}>
+                <div className={styles.pagination} onClick={() => setShow(!show)}>
+                    {moment(forecasts[0]!.date).format('dddd, MMMM Do')}
+                    <div>{show ? <>&#8963;</> : <>&#8964;</>}</div>
+
+                </div>
+                {show && forecasts.map(f => 
+                    <ForecastWeatherWidget forecast={f!!} />
+                )}
+        </React.Fragment>
+    )
 }
 
 const ForecastWeatherQuery: React.FC<{coordinates: Coordinates}> = ({coordinates}) => {
@@ -83,14 +101,7 @@ const ForecastWeatherQuery: React.FC<{coordinates: Coordinates}> = ({coordinates
 
     return (<>
         {Object.entries(dataByDay).map(([day,fs]) => (
-            <React.Fragment key={day}>
-                <div className={styles.pagination}>
-                    {moment(fs[0]!.date).format('dddd, MMMM Do')}
-                </div>
-                {fs.map(f => 
-                    <ForecastWeatherWidget forecast={f!!} />
-                )}
-            </React.Fragment>
+            <ForecastEntry day={day} forecasts={fs as Forecast[]} />
         ))}
     </>)
 }
