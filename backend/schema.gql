@@ -36,8 +36,8 @@ type Forecast {
   snow: Float
   temperature: Float!
   visibility: Float!
-  windDegrees: Float!
-  windSpeed: Float!
+  windDegrees: Int!
+  windSpeed: Int!
 }
 
 type ForecastWeatherDTO {

@@ -30,9 +30,9 @@ export class Forecast {
     @Field()
     clouds: number
 
-    @Field()
+    @Field(() => Int)
     windSpeed: number
-    @Field()
+    @Field(() => Int)
     windDegrees: number
 
     @Field()

@@ -44,9 +44,9 @@ export class RegionWeatherDTO {
     @Field()
     clouds: number
 
-    @Field()
+    @Field(() => Int)
     windSpeed: number
-    @Field()
+    @Field(() => Int)
     windDegrees: number
 
     @Field()
