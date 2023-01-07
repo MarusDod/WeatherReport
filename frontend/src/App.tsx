@@ -8,6 +8,10 @@ import Signup from './components/FormModal';
 import MyToast from './components/MyToast';
 import { Provider as ReduxProvider } from 'react-redux';
 import store from './lib/store';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCloud, faCloudRain, faDroplet, faEye, faEyeSlash, faTemperature0, faWater, faWind } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faWind,faCloud,faDroplet,faTemperature0,faCloudRain,faWater,faEye)
 
 function App() {
 

@@ -9,6 +9,11 @@ import ForecastWeatherQuery from './components/forecastWeatherWidget'
 import GMap from './components/GMap'
 import { useSelector } from 'react-redux'
 import { ReduxUser, RootReducer } from './lib/store'
+import { useQuery } from '@apollo/client'
+import { CurrentWeatherByLocationQueryQuery } from './gql/graphql'
+import { currentWeatherByLocationQuery } from './lib/queries'
+import { toast } from 'react-toastify'
+import ReactLoading from 'react-loading';
 
 const Homepage: React.FC = ({}) => {
 
@@ -17,6 +22,24 @@ const Homepage: React.FC = ({}) => {
 
     const loggedInUser = useSelector<RootReducer,ReduxUser>(state => state.user)
     const isLoggedIn = useMemo(() => !!loggedInUser.email && !!loggedInUser.username, [loggedInUser])
+
+    const {loading,error,data} = useQuery<CurrentWeatherByLocationQueryQuery>(currentWeatherByLocationQuery,{
+        variables: {
+            lat: coords?.lat,
+            long: coords?.long,
+        },
+        skip: !coords
+    })
+
+    useEffect(() => {
+        if(!error)
+            return
+
+        toast(error.networkError?.message,{
+            position: 'top-center',
+        })
+    },[error])
+
 
     useEffect(() => {
         if(searchParams.get('latitude') && searchParams.get('longitude')){
@@ -35,13 +58,28 @@ const Homepage: React.FC = ({}) => {
         }
     },[searchParams])
 
+    if(loading){
+            <ReactLoading
+                type="spin" 
+                color="red" 
+                height={"10%"} 
+                width={"10%"} 
+                />
+    }
+
+
     return <Layout> {!coords ? (<div></div>) : 
         (<>
             <div className={styles.weathercontainer} >
-                <CurrentWeatherWidget location={coords} />
-                <GMap coordinates={coords} />
+                {loading || 
+                    (<>
+                        {data && <CurrentWeatherWidget data={data} />}
+                        <GMap coordinates={coords} setCoordinates={setCoords} view={data?.currentWeather.dayIcon} loggedIn={false} />
+                    </>)}
             </div>
-            {isLoggedIn && <ForecastWeatherQuery location={coords} />}
+            {isLoggedIn ? 
+            <ForecastWeatherQuery location={coords} />
+            : <div className={styles.disclaimer}>Sign in to see 4 day forecast</div>}
         </>)}
     </Layout>
         

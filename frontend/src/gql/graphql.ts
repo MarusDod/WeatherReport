@@ -46,8 +46,8 @@ export type Forecast = {
   snow?: Maybe<Scalars['Float']>;
   temperature: Scalars['Float'];
   visibility: Scalars['Float'];
-  windDegrees: Scalars['Float'];
-  windSpeed: Scalars['Float'];
+  windDegrees: Scalars['Int'];
+  windSpeed: Scalars['Int'];
 };
 
 export type ForecastWeatherDto = {
@@ -154,8 +154,8 @@ export type RegionWeatherDto = {
   temperature: Scalars['Float'];
   timezone: Scalars['Float'];
   visibility: Scalars['Float'];
-  windDegrees: Scalars['Float'];
-  windSpeed: Scalars['Float'];
+  windDegrees: Scalars['Int'];
+  windSpeed: Scalars['Int'];
 };
 
 export type SignUpInput = {

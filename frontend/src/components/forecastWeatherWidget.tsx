@@ -23,21 +23,27 @@ const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
             <div className={styles.temp}>{kelvinToCelsius(forecast.temperature)}ºC</div>
         </div>
         <div className={styles.stat}>
+            <FontAwesomeIcon icon={"wind"} />
             Wind {forecast.windSpeed} km/h
         </div>
         <div className={styles.stat}>
+            <FontAwesomeIcon icon={"wind"} />
             Pressure {forecast.pressure}hPa
         </div>
         <div className={styles.stat}>
+            <FontAwesomeIcon icon={"droplet"} />
             Humidity {forecast.humidity}%
         </div>
         <div className={styles.stat}>
+            <FontAwesomeIcon icon={"eye"} />
             Visibility {forecast.visibility}m
         </div>
         <div className={styles.stat}>
+            <FontAwesomeIcon icon={"cloud"} />
             Cloudiness {forecast.clouds}%
         </div>
         <div className={styles.stat}>
+            <FontAwesomeIcon icon={"water"} />
             Sea Level {forecast.seaLevel} hPa
         </div>
 

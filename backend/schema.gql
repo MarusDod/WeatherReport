@@ -109,8 +109,8 @@ type RegionWeatherDTO {
   temperature: Float!
   timezone: Float!
   visibility: Float!
-  windDegrees: Float!
-  windSpeed: Float!
+  windDegrees: Int!
+  windSpeed: Int!
 }
 
 input SignUpInput {

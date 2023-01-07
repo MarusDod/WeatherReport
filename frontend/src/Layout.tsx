@@ -141,6 +141,8 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
                     className={styles.search} 
                     type="text"
                     onChange={debounce(onSearchChange,500)}
+                    disabled={!isLoggedIn}
+                    style={{cursor: isLoggedIn ? 'text' : 'not-allowed'}}
                     />
 
                 <OutsideClickHandler onOutsideClick={() => setSuggestions([])} >
@@ -156,7 +158,7 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
 
             {!isLoggedIn && <button onClick={() => setShowSignup(true)}>Sign Up</button>}
             {!isLoggedIn && <button onClick={() => setShowLogin(true)}>Log in</button>}
-            {isLoggedIn && <img src={Avatar} alt="(You)" style={{objectFit: 'contain',maxHeight:"90%",maxWidth:"90%"}} />}
+            {isLoggedIn && <img src={Avatar} alt="(You)" title={loggedInUser.username!!} style={{objectFit: 'contain',maxHeight:"90%",maxWidth:"90%"}} />}
             {isLoggedIn && <button onClick={logout}>Log Out</button>}
         </div>
         <div className={styles.rest} style={{
