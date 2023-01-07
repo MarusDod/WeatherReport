@@ -32,7 +32,7 @@ const GMap: React.FC<{coordinates: Coordinates,setCoordinates: React.Dispatch<Re
     return isLoaded ? (
         <GoogleMap onDragEnd={onMoveMap} zoom={8} mapContainerClassName={styles.gmap}  center={{lat: coordinates.lat,lng: coordinates.long}} >
             <Marker 
-                draggable={false}
+                draggable={loggedIn}
                 icon={{
                     url: view ?? "",
                     scaledSize: new google.maps.Size(80,80),

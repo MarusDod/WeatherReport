@@ -1,4 +1,4 @@
-import styles from '../styles/login.module.css'
+import styles from '../styles/login.module.scss'
 import { useCallback, useState } from "react"
 import FormModal from "./FormModal"
 import { apolloClient } from "../lib/backendProvider"

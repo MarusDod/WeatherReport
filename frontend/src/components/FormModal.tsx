@@ -17,7 +17,7 @@ const slidein = keyframes`
 `
 
 const Modal = styled.div`
-    z-index: 10;
+    z-index: 10001;
     background-color: rgb(11, 11, 11,0.5);
     width: 100%;
     height: 100%;
@@ -25,14 +25,15 @@ const Modal = styled.div`
     position: fixed;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
 `
 
 const ModalPopup = styled.div.attrs((props: {mounted: boolean}) => props)`
-    max-width: 90vw;
     width: 500px;
-    height: 70vh;
-    padding: 2em;
+    max-width: 90vw;
+    max-height: 70vh;
+    overflow: hidden;
+    padding: 1.5em 1em;
     background: lightgrey;
     border-radius: 3px;
     opacity: ${ifProp('mounted',1,0)};
@@ -43,7 +44,7 @@ const ModalPopup = styled.div.attrs((props: {mounted: boolean}) => props)`
     justify-content: center;
     align-items: flex-start;
     gap: 1em;
-    font-size: 1.5em;
+    font-size: 1.3em;
 
     animation-name: ${slidein};
     animation-duration: .5s;

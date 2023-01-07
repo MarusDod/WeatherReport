@@ -6,7 +6,7 @@
     display: flex;
     height: 80px;
     flex-flow: row nowrap;
-    background-color: sienna;
+    background-color: gray ;
     justify-content: space-between;
     align-items: center;
     gap: .5em;
@@ -21,7 +21,8 @@
     }
 
     & .search {
-        background-color: gray;
+        background-color: rgb(35, 195, 195);
+        color: grey;
         padding: .5em;
         border-radius: 20px;
         width: 90%;

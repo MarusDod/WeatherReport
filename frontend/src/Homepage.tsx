@@ -74,7 +74,7 @@ const Homepage: React.FC = ({}) => {
                 {loading || 
                     (<>
                         {data && <CurrentWeatherWidget data={data} />}
-                        <GMap coordinates={coords} setCoordinates={setCoords} view={data?.currentWeather.dayIcon} loggedIn={false} />
+                        <GMap coordinates={coords} setCoordinates={setCoords} view={data?.currentWeather.dayIcon} loggedIn={isLoggedIn} />
                     </>)}
             </div>
             {isLoggedIn ? 
