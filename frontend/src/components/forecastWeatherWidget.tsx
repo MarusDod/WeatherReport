@@ -23,8 +23,7 @@ const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
             <div className={styles.temp}>{kelvinToCelsius(forecast.temperature)}ºC</div>
         </div>
         <div className={styles.stat}>
-            <span>Wind</span> 
-            <span>{forecast.windSpeed} km/h</span>
+            Wind {forecast.windSpeed} km/h
         </div>
         <div className={styles.stat}>
             Pressure {forecast.pressure}hPa

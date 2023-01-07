@@ -83,7 +83,7 @@ export class RegionWeatherDTO {
             sunrise: data.sys.sunrise,
             sunset: data.sys.sunset,
             clouds: data.clouds.all,
-            windSpeed: (data.wind.speed / 1000) * 3600,
+            windSpeed: Math.floor((data.wind.speed / 1000) * 3600),
             windDegrees: data.wind.deg,
             visibility:data.visibility,
             feelsLike: data.main.feels_like,
