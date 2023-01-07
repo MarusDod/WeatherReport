@@ -87,9 +87,7 @@ const ForecastWeatherQuery: React.FC<{location: Coordinates}> = ({location}) => 
         if(!error)
             return
 
-        toast(error.networkError?.message,{
-            position: 'top-center',
-        })
+        toast(error.networkError?.message)
     },[error])
 
     if(loading){

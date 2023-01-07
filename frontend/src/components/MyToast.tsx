@@ -6,7 +6,8 @@ const MyToast: React.FC = () => createPortal(
     (<ToastContainer
         autoClose={4000}
         closeButton={true}
-        position={'top-center'}
+        theme={'dark'}
+        position={'bottom-right'}
         newestOnTop={true}
         hideProgressBar={true}
         limit={3} />),

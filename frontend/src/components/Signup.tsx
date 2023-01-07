@@ -43,7 +43,6 @@ const Signup: React.FC<{hide: () => any}> = ({hide}) => {
 
                 toast('Signed Up successfully',{
                     type:  "success",
-                    position: 'top-center'
                 })
 
                 hide()

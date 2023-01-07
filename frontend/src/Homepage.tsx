@@ -35,9 +35,7 @@ const Homepage: React.FC = ({}) => {
         if(!error)
             return
 
-        toast(error.networkError?.message,{
-            position: 'top-center',
-        })
+        toast(error.networkError?.message)
     },[error])
 
 
@@ -58,21 +56,17 @@ const Homepage: React.FC = ({}) => {
         }
     },[searchParams])
 
-    if(loading){
-            <ReactLoading
-                type="spin" 
-                color="red" 
-                height={"10%"} 
-                width={"10%"} 
-                />
-    }
-
-
     return <Layout> {!coords ? (<div></div>) : 
         (<>
             <div className={styles.weathercontainer} >
-                {loading || 
-                    (<>
+                {loading ?
+                    (<ReactLoading
+                        type="spin" 
+                        color="red" 
+                        height={"10%"} 
+                        width={"10%"} 
+                        />)
+                :    (<>
                         {data && <CurrentWeatherWidget data={data} />}
                         <GMap coordinates={coords} setCoordinates={setCoords} view={data?.currentWeather.dayIcon} loggedIn={isLoggedIn} />
                     </>)}

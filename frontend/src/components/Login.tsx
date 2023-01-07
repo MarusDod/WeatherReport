@@ -38,7 +38,6 @@ const Login: React.FC<{hide: () => any}> = ({hide}) => {
 
                 toast('Logged in successfully',{
                     type:  "success",
-                    position: 'top-center'
                 })
 
                 hide()
