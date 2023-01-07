@@ -62,7 +62,7 @@ export class Forecast {
             nightIcon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
             date: new Date(data.dt * 1000),
             clouds: data.clouds.all,
-            windSpeed: data.wind.speed,
+            windSpeed: (data.wind.speed / 1000) * 3600,
             windDegrees: data.wind.deg,
             visibility:data.visibility,
             feelsLike: data.main.feels_like,

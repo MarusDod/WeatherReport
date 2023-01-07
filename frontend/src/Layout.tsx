@@ -5,29 +5,30 @@ import Avatar from './assets/avatar.png'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
-import { CityInfoByNameQueryDocument, GeoCodeDto, LoginMutation, LogoutMutation } from './gql/graphql'
+import { CityInfoByNameQueryDocument, GeoCodeDto, LoginMutation, LogoutMutation, ProfileQueryQuery, User } from './gql/graphql'
 import { apolloClient } from './lib/backendProvider'
 import { debounce } from 'lodash'
 import { Region } from './lib/types'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import { ToastContainer, toast } from 'react-toastify'
-import { logoutMutation } from './lib/queries'
-import store, { ReduxUser, RootReducer, clearUser } from './lib/store'
+import { logoutMutation, profileQuery } from './lib/queries'
+import store, { ReduxUser, RootReducer, clearUser, setUser } from './lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import OutsideClickHandler from 'react-outside-click-handler'
+import { useCookies } from 'react-cookie'
 
 
 const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
     const [searchParams,setSearchParams] = useSearchParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [cookies,setCookie,removeCookie] = useCookies(['sid'])
 
     const [showSignup,setShowSignup] = useState<boolean>(false)
     const [showLogin,setShowLogin] = useState<boolean>(false)
 
     const loggedInUser = useSelector<RootReducer,ReduxUser>(state => state.user)
-
     const isLoggedIn = useMemo(() => !!loggedInUser.email && !!loggedInUser.username, [loggedInUser])
 
     const [search,setSearch] = useState<string>("")
@@ -63,10 +64,13 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
     }, [search])
 
     const logout = () => {
+
         apolloClient.mutate<LogoutMutation>({
             mutation: logoutMutation,
         })
         .then(result => {
+            removeCookie('sid')
+
             if(result.data!.logout.success){
                 toast("Logged Out",{
                     type: 'default'
@@ -97,13 +101,28 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
         setSearch(ev.target.value.trim())
     },[search])
 
-    useEffect(() => {
-        window.addEventListener('keydown',e => {
+    const keyDownHandler = useCallback((e: KeyboardEvent) => {
             if(e.key === 'Escape'){
                 setSuggestions([])
             }
+    },[suggestions])
+
+    useEffect(() => {
+        window.addEventListener('keydown',keyDownHandler)
+
+        apolloClient.query<ProfileQueryQuery>({
+            query: profileQuery
         })
+        .then(result => {
+            dispatch(setUser({
+                email: result.data.profile.email,
+                username: result.data.profile.username
+            }))
+        })
+
+        return () => window.removeEventListener('keydown',keyDownHandler)
     },[])
+
 
 
     return (<>

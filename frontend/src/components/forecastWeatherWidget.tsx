@@ -23,7 +23,6 @@ const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
             <div className={styles.temp}>{kelvinToCelsius(forecast.temperature)}ºC</div>
         </div>
         <div className={styles.stat}>
-            <FontAwesomeIcon icon="wind" />
             <span>Wind</span> 
             <span>{forecast.windSpeed} km/h</span>
         </div>
@@ -103,7 +102,7 @@ const ForecastWeatherQuery: React.FC<{location: Coordinates}> = ({location}) => 
 
     return (<>
         {Object.entries(dataByDay).map(([day,fs]) => (
-            <ForecastEntry day={day} forecasts={fs as Forecast[]} />
+            <ForecastEntry key={day} day={day} forecasts={fs as Forecast[]} />
         ))}
     </>)
 }

@@ -9,10 +9,13 @@ import { handleGraphqlErrors } from "../lib/helper"
 import { useDispatch } from "react-redux"
 import { setUser } from '../lib/store'
 import { LoginMutation } from "../gql/graphql"
+import { useCookies } from 'react-cookie'
 
 const Login: React.FC<{hide: () => any}> = ({hide}) => {
     const [email,setEmail] = useState<string>("")
     const [password,setPassword] = useState<string>("")
+
+    const [cookies,setCookie,removeCookie] = useCookies(['sid'])
 
     const dispatch = useDispatch()
 

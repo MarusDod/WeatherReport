@@ -87,6 +87,12 @@ export class AuthResolver {
     }
 
     @Authorized()
+    @Query(() => User)
+    profile (@Ctx() ctx): User {
+        return ctx.req.session.user
+    }
+
+    @Authorized()
     @Mutation(() => LogoutInfo)
     async logout(@Ctx() ctx): Promise<LogoutInfo>{
         const user = ctx.req.session.user

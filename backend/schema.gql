@@ -83,6 +83,7 @@ type Query {
   currentWeather(input: WeatherInputDTO!, preferences: PreferencesInputDTO): RegionWeatherDTO!
   forecastWeather(input: WeatherInputDTO!, limit: Int, pref: PreferencesInputDTO): ForecastWeatherDTO!
   geoCode(input: GeoCodeInput!, limit: Float): [GeoCodeDTO!]!
+  profile: User!
 }
 
 type RegionWeatherDTO {

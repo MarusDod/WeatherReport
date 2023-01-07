@@ -1,7 +1,5 @@
 import { createClient } from "redis";
 
-console.log(process.env['REDIS_URL'],process.env['REDIS_AUTH'],process.env['NODE_ENV'])
-
 export const sessionClient = createClient({
     url: process.env['REDIS_URL'],
     password: process.env['REDIS_AUTH'],

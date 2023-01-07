@@ -9,6 +9,15 @@ export const loginMutation = gql`
     }
 `
 
+export const profileQuery = gql`
+    query ProfileQuery {
+        profile {
+            username
+            email
+        }
+    }
+`
+
 export const logoutMutation = gql`
     mutation Logout {
         logout {

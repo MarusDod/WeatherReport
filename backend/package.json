@@ -6,7 +6,8 @@
   "scripts": {
     "compile": "tsc",
     "watch": "tsc -w",
-    "serve": "NODE_ENV=development nodemon --watch src -e ts"
+    "serve": "NODE_ENV=development nodemon --watch src -e ts",
+    "serve:prod": "NODE_ENV=production node dist/index.js"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

@@ -9,8 +9,8 @@ export type ReduxUser = {
 export const counterSlice = createSlice({
     name: 'user',
     initialState: {
-        email: sessionStorage.getItem("email"),
-        username: sessionStorage.getItem("username"),
+        email: null,
+        username: null,
     },
     reducers: {
       setEmail: (state,{payload}) => {
@@ -32,18 +32,6 @@ export const counterSlice = createSlice({
 
 export const {setEmail, setUser, setUsername, clearUser} = counterSlice.actions
 
-export const saveUserState = (user: ReduxUser): void => {
-    if(user.email)
-        sessionStorage.setItem("email",user.email)
-    else
-        sessionStorage.removeItem("email")
-
-    if(user.username)
-        sessionStorage.setItem("username",user.username)
-    else
-        sessionStorage.removeItem("username")
-}
-
 const rootReducer = combineReducers({
     user: counterSlice.reducer
 })
@@ -51,8 +39,6 @@ const rootReducer = combineReducers({
 const store = configureStore({
     reducer: rootReducer
 })
-
-store.subscribe(() => saveUserState(store.getState().user))
 
 export type RootReducer = ReturnType<typeof rootReducer>
 
