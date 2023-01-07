@@ -42,7 +42,7 @@ const RedisStore = connectRedis(session);
         resave: false,
         saveUninitialized: false,
         genid: req => uuidv4(),
-        
+        proxy: process.env['NODE_ENV'] === 'production',
         cookie: {
             maxAge: 2 * 3600 * 1000,
             httpOnly: true,
