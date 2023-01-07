@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import styles from './styles/weatherWidget.module.scss'
 import { Coordinates } from './lib/types'
 import CloudImage from './assets/backgroundClouds.webp'
 import CurrentWeatherWidget from './components/currentWeatherWidget'
 import Layout from './Layout'
 import { useSearchParams } from 'react-router-dom'
+import ForecastWeatherQuery from './components/forecastWeatherWidget'
+import GMap from './components/GMap'
 
 const Homepage: React.FC = ({}) => {
 
@@ -27,10 +30,14 @@ const Homepage: React.FC = ({}) => {
         }
     },[searchParams])
 
-    return <Layout>
-            {coords ?
-                (<CurrentWeatherWidget location={coords} />)
-                : (<div></div>)}
+    return <Layout> {!coords ? (<div></div>) : 
+        (<>
+            <div className={styles.weathercontainer} >
+                <CurrentWeatherWidget location={coords} />
+                <GMap coordinates={coords} />
+            </div>
+            <ForecastWeatherQuery location={coords} />
+        </>)}
     </Layout>
         
 }

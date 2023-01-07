@@ -7,8 +7,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { forecastByCoordinatesQuery } from '../lib/queries';
 import moment from 'moment';
-import classNames from 'classnames';
 import { groupBy, kelvinToCelsius } from '../lib/helper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
@@ -23,7 +23,9 @@ const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
             <div className={styles.temp}>{kelvinToCelsius(forecast.temperature)}ºC</div>
         </div>
         <div className={styles.stat}>
-            <span>Wind</span> <span>{forecast.windSpeed} km/h</span>
+            <FontAwesomeIcon icon="wind" />
+            <span>Wind</span> 
+            <span>{forecast.windSpeed} km/h</span>
         </div>
         <div className={styles.stat}>
             Pressure {forecast.pressure}hPa
@@ -55,17 +57,17 @@ const ForecastEntry: React.FC<{day: string | number, forecasts: Forecast[]}> = (
 
                 </div>
                 {show && forecasts.map(f => 
-                    <ForecastWeatherWidget forecast={f!!} />
+                    <ForecastWeatherWidget key={f.date} forecast={f!!} />
                 )}
         </React.Fragment>
     )
 }
 
-const ForecastWeatherQuery: React.FC<{coordinates: Coordinates}> = ({coordinates}) => {
+const ForecastWeatherQuery: React.FC<{location: Coordinates}> = ({location}) => {
     const {error,data,loading} = useQuery<ForecastByCoordinatesQueryQuery>(forecastByCoordinatesQuery,{
         variables: {
-            lat: coordinates.lat,
-            long: coordinates.long,
+            lat: location.lat,
+            long: location.long,
         }
     })
 

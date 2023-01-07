@@ -8,7 +8,6 @@ import Signup from './components/FormModal';
 import MyToast from './components/MyToast';
 import { Provider as ReduxProvider } from 'react-redux';
 import store from './lib/store';
-import ForecastPage from './ForecastPage';
 
 function App() {
 
@@ -21,8 +20,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Homepage />} />
               {/*<Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />*/}
-              <Route path="/forecast" element={<ForecastPage />} />
+              <Route path="/signup" element={<Signup />} />
+  <Route path="/forecast" element={<ForecastPage />*/}
             </Routes>
           </BrowserRouter>
         </BackendProvider>

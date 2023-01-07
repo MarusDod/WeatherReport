@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { logoutMutation } from './lib/queries'
 import store, { ReduxUser, RootReducer, clearUser } from './lib/store'
 import { useDispatch, useSelector } from 'react-redux'
+import OutsideClickHandler from 'react-outside-click-handler'
 
 
 const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -96,6 +97,13 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
         setSearch(ev.target.value.trim())
     },[search])
 
+    useEffect(() => {
+        window.addEventListener('keydown',e => {
+            if(e.key === 'Escape'){
+                setSuggestions([])
+            }
+        })
+    },[])
 
 
     return (<>
@@ -119,13 +127,15 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
                     onChange={debounce(onSearchChange,500)}
                     />
 
-                <div className={styles.dropdown}>
-                    {suggestions.map(sug => 
-                        <div className={styles.dropitem} onClick={() => onSearchSubmit(sug)}>
-                            {sug.name} - {sug.country}
-                        </div>
-                    )}
-                </div>
+                <OutsideClickHandler onOutsideClick={() => setSuggestions([])} >
+                    <div className={styles.dropdown}>
+                        {suggestions.map(sug => 
+                            <div className={styles.dropitem} onClick={() => onSearchSubmit(sug)}>
+                                {sug.name} - {sug.country}
+                            </div>
+                        )}
+                    </div>
+                </OutsideClickHandler>
             </div>
 
             {!isLoggedIn && <button onClick={() => setShowSignup(true)}>Sign Up</button>}
@@ -135,7 +145,7 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
         </div>
         <div className={styles.rest} style={{
             backgroundImage: `url(${CloudImage})`,
-            backgroundRepeat: 'no-repet',
+            backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'fixed'
         }}>
             {children}
