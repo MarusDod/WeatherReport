@@ -8,7 +8,6 @@ import Signup from './components/FormModal';
 import MyToast from './components/MyToast';
 import { Provider as ReduxProvider } from 'react-redux';
 import store from './lib/store';
-import { CookiesProvider } from 'react-cookie';
 
 function App() {
 
@@ -17,13 +16,11 @@ function App() {
       <ReduxProvider store={store}>
           <MyToast />
           <BackendProvider>
-            <CookiesProvider>
               <BrowserRouter basename=''>
                 <Routes>
                   <Route path='/' element={<Homepage />} />
                 </Routes>
               </BrowserRouter>
-            </CookiesProvider>
           </BackendProvider>
       </ReduxProvider>
     </div>

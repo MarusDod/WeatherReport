@@ -8,15 +8,12 @@ import { GraphQLError } from "graphql"
 import { useDispatch } from "react-redux"
 import { setUser } from "../lib/store"
 import { SignupMutation } from "../gql/graphql"
-import { useCookies } from 'react-cookie'
 
 const Signup: React.FC<{hide: () => any}> = ({hide}) => {
     const [username,setUsername] = useState<string>("")
     const [mail,setEmail] = useState<string>("")
     const [password,setPassword] = useState<string>("")
     const [confirmation,setConfirmation] = useState<string>("")
-
-    const [cookies,setCookie,removeCookie] = useCookies(['sid'])
 
     const dispatch = useDispatch()
 

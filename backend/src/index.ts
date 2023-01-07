@@ -45,7 +45,7 @@ const RedisStore = connectRedis(session);
         
         cookie: {
             maxAge: 2 * 3600 * 1000,
-            httpOnly: false,
+            httpOnly: true,
             secure: process.env['NODE_ENV'] === 'production',
             sameSite: "none"
         }

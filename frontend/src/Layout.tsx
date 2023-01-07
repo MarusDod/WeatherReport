@@ -16,14 +16,12 @@ import { logoutMutation, profileQuery } from './lib/queries'
 import store, { ReduxUser, RootReducer, clearUser, setUser } from './lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import OutsideClickHandler from 'react-outside-click-handler'
-import { useCookies } from 'react-cookie'
 
 
 const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
     const [searchParams,setSearchParams] = useSearchParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [cookies,setCookie,removeCookie] = useCookies(['sid'])
 
     const [showSignup,setShowSignup] = useState<boolean>(false)
     const [showLogin,setShowLogin] = useState<boolean>(false)
@@ -69,7 +67,6 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
             mutation: logoutMutation,
         })
         .then(result => {
-            removeCookie('sid')
 
             if(result.data!.logout.success){
                 toast("Logged Out",{
