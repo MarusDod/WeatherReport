@@ -23,7 +23,7 @@ const GMap: React.FC<{coordinates: Coordinates,setCoordinates: React.Dispatch<Re
 
     const onMoveMap: () => void = useCallback(() => {
         if(!loggedIn){
-            toast('Dragging is restricted to logged in users',{
+            toast('Sign In to drag marker on the map',{
                 type: 'warning'
             })
         }

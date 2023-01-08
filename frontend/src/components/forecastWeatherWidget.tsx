@@ -9,50 +9,63 @@ import { forecastByCoordinatesQuery } from '../lib/queries';
 import moment from 'moment';
 import { groupBy, kelvinToCelsius } from '../lib/helper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import TimePicker, {TimePickerValue} from 'react-time-picker';
+import Clock from 'react-clock'
+import 'react-clock/dist/Clock.css';
 
 
 const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
     
 
-    return (<div className={styles.forecastcard}>
-        <div className={styles.row}>
-            {moment(forecast.date).format('LT')}
-        </div>
-        <div className={styles.row}>
-            <img src={forecast.nightIcon} alt={forecast.description} style={{width:"100%"}} />
-            <div className={styles.temp}>{kelvinToCelsius(forecast.temperature)}ºC</div>
-        </div>
-        <div className={styles.stat}>
-            <FontAwesomeIcon icon={"wind"} />
-            Wind {forecast.windSpeed} km/h
-        </div>
-        <div className={styles.stat}>
-            <FontAwesomeIcon icon={"wind"} />
-            Pressure {forecast.pressure}hPa
-        </div>
-        <div className={styles.stat}>
-            <FontAwesomeIcon icon={"droplet"} />
-            Humidity {forecast.humidity}%
-        </div>
-        <div className={styles.stat}>
-            <FontAwesomeIcon icon={"eye"} />
-            Visibility {forecast.visibility}m
-        </div>
-        <div className={styles.stat}>
-            <FontAwesomeIcon icon={"cloud"} />
-            Cloudiness {forecast.clouds}%
-        </div>
-        <div className={styles.stat}>
-            <FontAwesomeIcon icon={"water"} />
-            Sea Level {forecast.seaLevel} hPa
-        </div>
-
-    </div>)
+    return (
+        <div className={styles.forecastcard}>
+            <div className={styles.row}>
+                {moment(forecast.date).format('LT')}
+            </div>
+            <div className={styles.row}>
+                <img src={forecast.nightIcon} alt={forecast.description} style={{width:"100%"}} />
+                <div className={styles.temp}>{kelvinToCelsius(forecast.temperature)}ºC</div>
+            </div>
+            <div className={styles.stat}>
+                <FontAwesomeIcon icon={"wind"} />
+                Wind {forecast.windSpeed}km/h
+            </div>
+            <div className={styles.stat}>
+                <FontAwesomeIcon icon={"wind"} />
+                Pressure {forecast.pressure}hPa
+            </div>
+            <div className={styles.stat}>
+                <FontAwesomeIcon icon={"droplet"} />
+                Humidity {forecast.humidity}%
+            </div>
+            <div className={styles.stat}>
+                <FontAwesomeIcon icon={"eye"} />
+                Visibility {forecast.visibility}m
+            </div>
+            <div className={styles.stat}>
+                <FontAwesomeIcon icon={"cloud"} />
+                Cloudiness {forecast.clouds}%
+            </div>
+            <div className={styles.stat}>
+                <FontAwesomeIcon icon={"water"} />
+                Sea Level {forecast.seaLevel}hPa
+            </div>
+        </div>)
 }
 
 const ForecastEntry: React.FC<{day: string | number, forecasts: Forecast[]}> = ({day,forecasts}) => {
     const [show,setShow] = useState(false)
 
+    const [pickerHour,setPickerHour] = useState<number>(new Date(forecasts[0].date).getHours())
+
+    const pickedForecast = useMemo<Forecast | undefined>(() => 
+        forecasts.find((f,index,arr) => {
+            const fhour = new Date(f.date).getHours()
+
+            return fhour <= pickerHour && pickerHour - fhour < 3
+        })
+        ,[day,pickerHour])
+    
     return (
         <React.Fragment key={day}>
                 <div className={styles.pagination} onClick={() => setShow(!show)}>
@@ -60,9 +73,17 @@ const ForecastEntry: React.FC<{day: string | number, forecasts: Forecast[]}> = (
                     <div>{show ? <>&#8963;</> : <>&#8964;</>}</div>
 
                 </div>
-                {show && forecasts.map(f => 
-                    <ForecastWeatherWidget key={f.date} forecast={f!!} />
-                )}
+                
+                {show && (<>
+                    <TimePicker 
+                        maxDetail={'hour'} 
+                        disableClock={true}
+                        className={styles.clockpicker}
+                        onChange={val => setPickerHour(parseInt(val.toString().split(':')[0]))} 
+                        value={`${pickerHour}:00`} />
+                    <Clock value={`${pickerHour}:00`} />
+                    {pickedForecast && <ForecastWeatherWidget key={pickedForecast.date} forecast={pickedForecast} />}
+                    </>)}
         </React.Fragment>
     )
 }

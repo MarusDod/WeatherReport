@@ -13,7 +13,8 @@
 }
 
 .weathercard {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     padding: .5em;
     border-radius: 20px 0 20px 0;
 
@@ -30,34 +31,25 @@
     font-size: 2em;
     text-shadow: 1px 1px black;
 
-    grid-template: 
-        "area area" 2em
-        "time time" 1em
-        "icon icon" 1fr
-        "description description" 2em /
-        1fr 1fr;
-
     & .area {
-        grid-area: area;
         font-weight: bold;
         font-size: larger;
         text-align: center;
     }
 
     & .time {
-        grid-area: time;
         text-align: center;
         font-weight: lighter;
         font-size: .6em;
     }
 
     & .icon {
-        grid-area: icon;
         display: flex;
         overflow: hidden;
 
         flex-direction: row;
 
+        margin: auto;
         align-items: center;
         justify-content: center;
 
@@ -69,13 +61,11 @@
     }
 
     & .description {
-        grid-area: description;
         text-align: center;
         margin-top: auto;
     }
 
     & .details {
-        grid-area: details;
         margin-top: auto;
         display: flex;
         align-items: center;
@@ -105,7 +95,7 @@
     font-size: 2em;
     padding: 1em;
     border-radius: 5px;
-    margin-top: auto;
+    margin: auto;
     animation: contract 0.2s linear;
 
     &:hover {

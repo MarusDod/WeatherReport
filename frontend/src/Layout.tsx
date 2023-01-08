@@ -17,6 +17,7 @@ import store, { ReduxUser, RootReducer, clearUser, setUser } from './lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import OutsideClickHandler from 'react-outside-click-handler'
 
+const countryNames = new Intl.DisplayNames(['en'],{type: 'region'})
 
 const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
     const [searchParams,setSearchParams] = useSearchParams()
@@ -39,12 +40,14 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
             return
         }
 
-        const [city] = search.split(' ')
+        const [city,state,country] = search.split(',').map(s => s.trim())
 
         apolloClient.query({
             query: CityInfoByNameQueryDocument,
             variables: {
                 city: city,
+                state: state,
+                country: country,
             }
         })
         .then(({error,data}) => {
@@ -72,6 +75,9 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
                 toast("Logged Out",{
                     type: 'default'
                 })
+
+                setSearchParams({})
+                setSearch("")
             }
             else {
                 toast("Error logging out",{
@@ -92,16 +98,25 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
         setSearch("")
     },[search])
 
-    const onSearchChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(ev => {
+    const onSearchChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(debounce(ev => {
         ev.preventDefault()
 
         setSearch(ev.target.value.trim())
-    },[search])
+    },500),[search])
+
+    const onClickSearch: React.MouseEventHandler<HTMLInputElement> = useCallback(() => {
+        console.log('aye')
+        if(!isLoggedIn){
+            toast("Restricted Access",{
+                type: 'warning',
+            })
+        }
+    },[isLoggedIn])
 
     const keyDownHandler = useCallback((e: KeyboardEvent) => {
-            if(e.key === 'Escape'){
-                setSuggestions([])
-            }
+            if(e.key === 'Escape')
+                if(suggestions.length !== 0)
+                    setSuggestions([])
     },[suggestions])
 
     useEffect(() => {
@@ -140,16 +155,20 @@ const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
                     placeholder='Search location...' 
                     className={styles.search} 
                     type="text"
-                    onChange={debounce(onSearchChange,500)}
-                    disabled={!isLoggedIn}
-                    style={{cursor: isLoggedIn ? 'text' : 'not-allowed'}}
+                    onChange={onSearchChange}
+                    onClick={onClickSearch}
+                    readOnly={!isLoggedIn}
+                    style={{
+                        cursor: isLoggedIn ? 'text' : 'not-allowed',
+                        userSelect: isLoggedIn ? "auto" : "none"
+                    }}
                     />
 
                 <OutsideClickHandler onOutsideClick={() => setSuggestions([])} >
                     <div className={styles.dropdown}>
                         {suggestions.map(sug => 
                             <div className={styles.dropitem} onClick={() => onSearchSubmit(sug)}>
-                                {sug.name} - {sug.country}
+                                {sug.name} - {countryNames.of(sug.country)}
                             </div>
                         )}
                     </div>
