@@ -9,6 +9,9 @@
         width: 80%;
     }
 
+    opacity: 0;
+    transition: opacity .5s;
+
     overflow: hidden;
     background-color: rgb(0, 0, 139,0.7);
     color: white;
@@ -60,6 +63,12 @@
     text-align: center;
     padding: .5em;
     border-bottom: 1px solid black;
+
+    transition: .1s ease-out;
+
+    &:hover {
+        background-color: rgba(0, 255, 255, 0.661);
+    }
 }
 
 .clockpicker {

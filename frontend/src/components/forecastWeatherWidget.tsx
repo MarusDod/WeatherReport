@@ -12,13 +12,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TimePicker, {TimePickerValue} from 'react-time-picker';
 import Clock from 'react-clock'
 import 'react-clock/dist/Clock.css';
+import classNames from 'classnames';
 
 
 const ForecastWeatherWidget: React.FC<{forecast: Forecast}> = ({forecast}) => {
     
+    const [fade,setFade] = useState(false)
+
+    useEffect(() => {
+        setFade(true)
+    },[])
 
     return (
-        <div className={styles.forecastcard}>
+        <div className={styles.forecastcard} style={{opacity: fade ? 1 : 0}}>
             <div className={styles.row}>
                 {moment(forecast.date).format('LT')}
             </div>
@@ -67,11 +73,10 @@ const ForecastEntry: React.FC<{day: string | number, forecasts: Forecast[]}> = (
         ,[day,pickerHour])
     
     return (
-        <React.Fragment key={day}>
+        <React.Fragment>
                 <div className={styles.pagination} onClick={() => setShow(!show)}>
                     {moment(forecasts[0]!.date).format('dddd, MMMM Do')}
                     <div>{show ? <>&#8963;</> : <>&#8964;</>}</div>
-
                 </div>
                 
                 {show && (<>

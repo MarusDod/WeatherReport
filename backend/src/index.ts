@@ -57,6 +57,7 @@ const RedisStore = connectRedis(session);
             "http://localhost:9200/graphql",
             "http://localhost:3000",
             "https://wreport.onrender.com",
+	    "https://wreport-graphql.onrender.com",
         ],
         credentials: true,
     }))
